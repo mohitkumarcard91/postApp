@@ -1,6 +1,7 @@
 import { useLocation, useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { POSTS_URL } from "@/constant/config";
 
 type Post = {
   id: number;
@@ -15,13 +16,14 @@ const PostPage = () => {
   const [loading, setLoading] = useState(!state);
 
   useEffect(() => {
-    if (!post && id) {
+    if (id) {
       axios
-        .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+       .get(`${POSTS_URL}/posts/${id}`)
+
         .then((res) => setPost(res.data))
         .finally(() => setLoading(false));
     }
-  }, [id, post]);
+  }, [id]);
 
   if (loading)
     return (
@@ -33,7 +35,7 @@ const PostPage = () => {
   if (!post) return null;
 
   return (
-    <div className="flex-1 overflow-hidden min-h-screen bg-slate-600 px-6 py-10 text-white">
+    <div className="flex-1 h-full overflow-y-hidden min-h-screen bg-slate-600 px-6 py-10 text-white">
       <div className="max-w-3xl mx-auto">
         <Link
           to="/"
