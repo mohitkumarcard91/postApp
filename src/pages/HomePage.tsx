@@ -62,8 +62,8 @@ function HomePage() {
     });
   };
 
-  const getPagination = () => {
-    const pages: (number | string)[] = [];
+const getPagination = (): (number | "...")[] => {
+  const pages: (number | "...")[] = [];
 
     const siblingCount = 1;
     const totalNumbers = siblingCount * 2 + 3;
@@ -168,28 +168,29 @@ function HomePage() {
           >
             Prev
           </button>
-          {getPagination().map((item, index) =>
-            item === "..." ? (
-              <span
-                key={`dots-${index}`}
-                className="px-3 py-2 text-amber-300 font-bold"
-              >
-                ...
-              </span>
-            ) : (
-              <button
-                key={item}
-                onClick={() => setCurrentPage(item)}
-                className={`px-4 py-2 rounded-lg font-medium ${
-                  currentPage === item
-                    ? "bg-amber-400 text-black"
-                    : "bg-slate-700 text-amber-50"
-                }`}
-              >
-                {item}
-              </button>
-            )
-          )}
+        {getPagination().map((item, index) =>
+  item === "..." ? (
+    <span
+      key={`dots-${index}`}
+      className="px-3 py-2 text-amber-300 font-bold"
+    >
+      ...
+    </span>
+  ) : (
+    <button
+      key={item}
+      onClick={() => setCurrentPage(item)}
+      className={`px-4 py-2 rounded-lg font-medium ${
+        currentPage === item
+          ? "bg-amber-400 text-black"
+          : "bg-slate-700 text-amber-50"
+      }`}
+    >
+      {item}
+    </button>
+  )
+)}
+
 
           <button
             disabled={currentPage === totalPages}
